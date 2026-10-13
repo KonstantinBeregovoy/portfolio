@@ -2,6 +2,8 @@
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getPosts, formatDate } from '../../lib/content';
+import { en as t } from '../../i18n/en';
+import { PERSON_ID, breadcrumb, abs } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -12,11 +14,38 @@ const { Content } = await render(post);
 const d = post.data;
 const minutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).length / 220));
 ---
-<Base title={d.title} description={d.description} type="article" image={d.cover} date={d.date}>
+<Base
+  title={d.title}
+  description={d.description}
+  type="article"
+  image={d.cover}
+  date={d.date}
+  jsonLd={[
+    {
+      '@type': 'BlogPosting',
+      headline: d.title,
+      description: d.description,
+      datePublished: d.date.toISOString(),
+      dateModified: d.date.toISOString(),
+      author: { '@id': PERSON_ID },
+      inLanguage: 'en',
+      keywords: d.tags.join(', '),
+      url: abs(`/blog/${post.id}/`),
+      mainEntityOfPage: abs(`/blog/${post.id}/`),
+      ...(d.cover ? { image: abs(d.cover) } : {}),
+    },
+    breadcrumb([
+      { name: 'Home', path: '/' },
+      { name: 'Blog', path: '/blog/' },
+      { name: d.title, path: `/blog/${post.id}/` },
+    ]),
+  ]}
+>
   <article class="article">
     <p class="meta"><a href="/blog/">Blog</a></p>
     <h1>{d.title}</h1>
     <p class="meta">
+      <a href="/about/" rel="author">{t.siteName}</a>
       <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
       <span>{minutes} min read</span>
       <span>{d.kind}</span>

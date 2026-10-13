@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import { PERSON_ID } from '../lib/seo';
 
 const all = (await getCollection('certificates')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const groups = [
@@ -11,7 +12,28 @@ const groups = [
 const bundled = (id: string) => all.filter((c) => c.data.bundle === id);
 const fmt = (d: Date) => d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', timeZone: 'UTC' });
 ---
-<Base title="Certificates" description="Certificates and courses in AI, accessibility and engineering management.">
+<Base
+  pageType="CollectionPage"
+  title="Certificates"
+  description="Certificates and courses of Konstantin Beregovoy in AI, accessibility and engineering management, with verification links where they exist."
+  jsonLd={{
+    '@type': 'ItemList',
+    name: 'Certificates',
+    itemListElement: all.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'EducationalOccupationalCredential',
+        name: item.data.title,
+        credentialCategory: 'certificate',
+        recognizedBy: { '@type': 'Organization', name: item.data.issuer },
+        validFrom: item.data.date.toISOString().slice(0, 10),
+        ...(item.data.credentialUrl ? { url: item.data.credentialUrl } : {}),
+        about: { '@id': PERSON_ID },
+      },
+    })),
+  }}
+>
   <section class="block">
     <h1>Certificates</h1>
     <p class="lede" style="margin: 16px 0 0;">{all.length} certificates and courses. Where a verification link exists, it opens the original record.</p>

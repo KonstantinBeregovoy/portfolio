@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 const { kind, items, posts } = Astro.props;
 const label = kind === 'article' ? 'Articles' : 'Posts';
 ---
-<Base title={`Blog: ${label}`} description={`${label} on frontend, web standards and accessibility.`}>
+<Base pageType="CollectionPage" title={`Blog: ${label}`} description={`${label} by Konstantin Beregovoy on frontend, web standards, accessibility and AI-assisted engineering.`}>
   <section class="block">
     <div class="block-head"><h1>Blog: {label}</h1><a href="/rss.xml">RSS</a></div>
     <Filters label="Filter writing" items={items} current={`/blog/type/${kind}/`} />

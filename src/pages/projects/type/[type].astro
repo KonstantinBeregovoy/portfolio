@@ -14,9 +14,9 @@ export async function getStaticPaths() {
 const props = Astro.props as any;
 const items = [{ href: '/projects/', label: 'All' }, ...PROJECT_TYPES.filter((ty) => props.all.some((p: any) => p.data.type === ty.id)).map((ty) => ({ href: `/projects/type/${ty.id}/`, label: ty.label }))];
 ---
-<Base title={`Projects: ${props.type.label}`} description={`${props.type.label} projects.`}>
+<Base pageType="CollectionPage" title={`Projects: ${props.type.label}`} description={`${props.type.label} projects by Konstantin Beregovoy.`}>
   <section class="block">
-    <h1>Projects</h1>
+    <h1>{props.type.label}</h1>
     <p class="lede" style="margin: 16px 0 32px;">Work you can open and check: open source, web standards and products.</p>
     <Filters label="Filter projects by type" items={items} current={`/projects/type/${props.type.id}/`} />
     <div class="grid wide">{props.projects.map((p: any) => <ProjectCard project={p} level="h2" />)}</div>

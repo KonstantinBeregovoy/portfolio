@@ -13,7 +13,7 @@ const latest = posts.filter((p) => !bestIds.has(p.id)).slice(0, 3);
 const main = t.experience.filter((e) => e.main);
 const other = t.experience.filter((e) => e.other);
 ---
-<Base>
+<Base pageType="ProfilePage">
   <section class="block hero" aria-labelledby="hero-title">
     <h1 id="hero-title">{t.siteName}<span>{t.role}</span></h1>
     <p class="lede">{t.tagline}</p>

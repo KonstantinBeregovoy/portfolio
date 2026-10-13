@@ -37,6 +37,8 @@ const projects = defineCollection({
     stack: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), href: z.string().url() })).default([]),
     cover: z.string().optional(),
+    // true gives the card an HDR glow border and title (needs /img/hdr-glow-swatch.jpg, see global.css).
+    hdr: z.boolean().default(false),
     // true shows the project on Home (three at the start, six at most).
     featured: z.boolean().default(false),
     // Slug of a related blog entry.

@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getPosts } from '../../lib/content';
+import { PERSON_ID, breadcrumb, abs } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -13,7 +14,31 @@ const d = project.data;
 const related = d.post ? (await getPosts()).find((p) => p.id === d.post) : undefined;
 const statusLabel = { live: 'Live', ongoing: 'Ongoing', archived: 'Archived' }[d.status];
 ---
-<Base title={d.title} description={d.summary}>
+<Base
+  title={d.title}
+  description={d.summary}
+  image={d.cover}
+  jsonLd={[
+    {
+      '@type': d.type === 'opensource' ? 'SoftwareSourceCode' : 'CreativeWork',
+      name: d.title,
+      description: d.summary,
+      author: { '@id': PERSON_ID },
+      dateCreated: String(d.year),
+      keywords: d.stack.join(', '),
+      url: abs(`/projects/${project.id}/`),
+      ...(d.links.some((link) => link.href.includes('github.com'))
+        ? { codeRepository: d.links.find((link) => link.href.includes('github.com'))?.href }
+        : {}),
+      sameAs: d.links.map((link) => link.href),
+    },
+    breadcrumb([
+      { name: 'Home', path: '/' },
+      { name: 'Projects', path: '/projects/' },
+      { name: d.title, path: `/projects/${project.id}/` },
+    ]),
+  ]}
+>
   <article class="article">
     <p class="meta"><a href="/projects/">Projects</a></p>
     <h1>{d.title}</h1>

@@ -416,3 +416,30 @@ html::after {
   z-index: 1;
   background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(120, 194, 255, 0.034), transparent 70%);
 }
+
+/* ===== HDR logo: Ultra HDR JPEG (gain map) with a black background; "screen" makes the black disappear into the header.
+   Re-export it on #0a1220 or as a transparent HDR AVIF and this line can go. ===== */
+.brand img { mix-blend-mode: screen; }
+
+/* ===== HDR card: the border and the title are cut out of an HDR gain-map swatch (made with glow.bereg.dev, one file at 4x). The border is dimmed in CSS with a translucent layer on top.
+   Only on HDR screens. The second layer is the SDR fallback, so nothing disappears if the file is missing. ===== */
+.card.hdr .stretch { color: var(--text); }
+@media (dynamic-range: high) {
+  .card.hdr {
+    border: 2px solid transparent;
+    padding: calc(var(--s3) - 1px);
+    background:
+      linear-gradient(var(--surface), var(--surface)) padding-box,
+      linear-gradient(color-mix(in oklab, var(--bg) 40%, transparent), color-mix(in oklab, var(--bg) 40%, transparent)) border-box,
+      url('/img/hdr-glow-swatch.jpg') center / cover border-box,
+      linear-gradient(var(--accent), var(--accent)) border-box;
+  }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    .card.hdr .stretch {
+      background: url('/img/hdr-glow-swatch.jpg') center / cover, linear-gradient(var(--text), var(--text));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+}

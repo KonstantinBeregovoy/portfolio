@@ -6,6 +6,7 @@ year: 2026
 role: 'Author'
 status: 'live'
 stack: ['TypeScript', 'React', 'Web Workers', 'OKLab']
+hdr: true
 featured: true
 order: 10
 links:

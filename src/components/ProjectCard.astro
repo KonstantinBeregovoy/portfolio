@@ -6,7 +6,7 @@ const H = level;
 const d = project.data;
 const typeLabel = { opensource: 'Open source', standards: 'Standards', professional: 'Professional', personal: 'Personal' }[d.type];
 ---
-<article class="card">
+<article class={d.hdr ? 'card hdr' : 'card'}>
   <span class="meta">{typeLabel} · {d.year}</span>
   <H><a class="stretch" href={`/projects/${project.id}/`}>{d.title}</a></H>
   <p>{d.summary}</p>

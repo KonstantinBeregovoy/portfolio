@@ -2,3 +2,7 @@
 # File names are not hashed: when a font file changes, give it a new name (e.g. plex-sans-var-v2.woff2).
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
+
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+  Cache-Control: public, max-age=3600

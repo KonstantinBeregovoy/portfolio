@@ -7,7 +7,7 @@ import { getProjects, PROJECT_TYPES } from '../../lib/content';
 const projects = await getProjects();
 const items = [{ href: '/projects/', label: 'All' }, ...PROJECT_TYPES.filter((ty) => projects.some((p) => p.data.type === ty.id)).map((ty) => ({ href: `/projects/type/${ty.id}/`, label: ty.label }))];
 ---
-<Base title="Projects" description="Open source, standards work and products I built or led.">
+<Base pageType="CollectionPage" title="Projects" description="Open source, web standards and products built or led by Konstantin Beregovoy.">
   <section class="block">
     <h1>Projects</h1>
     <p class="lede" style="margin: 16px 0 32px;">Work you can open and check: open source, web standards and products.</p>

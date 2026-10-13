@@ -296,3 +296,87 @@ h2 { font-weight: 600; letter-spacing: -0.02em; }
 .article-body code, .article-body pre, .demo > div { border-radius: 2px; }
 .article-body blockquote { border-left-color: var(--accent); }
 footer.site { font-family: var(--mono); font-size: 13px; }
+
+/* ===== Blueprint, motion and atmosphere layer. Remove this block to go back to the static Blueprint. =====
+   One staged page load, lines that draw themselves as sections scroll in, a sharp amber second accent. */
+@property --tick { syntax: '<length>'; inherits: false; initial-value: 11px; }
+
+:root { --amber: #f2b45e; }
+
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+@keyframes draw { from { transform: scaleX(0); } }
+@keyframes appear { from { opacity: 0; } }
+
+/* Atmosphere: grid fades in, crosshair dots sit on the major intersections */
+body::before {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px),
+    radial-gradient(circle at 50% 50%, rgba(120, 194, 255, 0.5) 1.5px, transparent 2.5px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px, 120px 120px;
+  background-position: 0 0, 0 0, 0 0, 0 0, -60px -60px;
+  animation: appear 1.4s ease-out both;
+}
+
+/* Staged page load */
+main h1 { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero .lede, .hero .actions, .facts li { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero .lede { animation-delay: 0.18s; }
+.hero .actions { animation-delay: 0.3s; }
+.facts li:nth-child(1) { animation-delay: 0.42s; }
+.facts li:nth-child(2) { animation-delay: 0.5s; }
+.facts li:nth-child(3) { animation-delay: 0.58s; }
+.facts li:nth-child(4) { animation-delay: 0.66s; }
+
+/* Facts as a drawing title block */
+.facts { gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.facts li { background: var(--surface); border-top: 0; padding: var(--s2) var(--s3) var(--s3); }
+
+/* Section rule as a dimension line with end ticks, drawn on scroll */
+.block-head { position: relative; border-bottom: 0; padding-bottom: var(--s2); }
+.block-head::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 9px; transform-origin: left center;
+  background:
+    linear-gradient(var(--line), var(--line)) left bottom / 1px 9px no-repeat,
+    linear-gradient(var(--line), var(--line)) right bottom / 1px 9px no-repeat,
+    linear-gradient(var(--line), var(--line)) center bottom / 100% 1px no-repeat;
+  animation: draw 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.block-head h2::before { color: var(--amber); }
+
+/* Corner ticks grow and turn amber on hover */
+.card::before, blockquote.quote::before {
+  --tc: var(--accent);
+  background:
+    linear-gradient(var(--tc), var(--tc)) top left / var(--tick) 1px no-repeat,
+    linear-gradient(var(--tc), var(--tc)) top left / 1px var(--tick) no-repeat,
+    linear-gradient(var(--tc), var(--tc)) top right / var(--tick) 1px no-repeat,
+    linear-gradient(var(--tc), var(--tc)) top right / 1px var(--tick) no-repeat,
+    linear-gradient(var(--tc), var(--tc)) bottom left / var(--tick) 1px no-repeat,
+    linear-gradient(var(--tc), var(--tc)) bottom left / 1px var(--tick) no-repeat,
+    linear-gradient(var(--tc), var(--tc)) bottom right / var(--tick) 1px no-repeat,
+    linear-gradient(var(--tc), var(--tc)) bottom right / 1px var(--tick) no-repeat;
+  transition: opacity 0.15s, --tick 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.card:hover::before, .card:focus-within::before { --tick: 22px; --tc: var(--amber); opacity: 1; }
+.card:hover, .card:focus-within { border-color: color-mix(in oklab, var(--amber) 45%, var(--line)); }
+
+/* Sharp accent, used sparingly */
+.btn.primary:hover { background: var(--amber); border-color: var(--amber); }
+.filters a[aria-current='true'] { background: var(--amber); border-color: var(--amber); }
+a:hover { color: var(--amber); }
+nav a:hover { color: var(--text); }
+
+/* Scroll reveal, only where the browser can do it without JavaScript */
+@supports (animation-timeline: view()) {
+  .block-head::after { animation: draw linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+  .card, blockquote.quote, .timeline li, .posts > li {
+    animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 40%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

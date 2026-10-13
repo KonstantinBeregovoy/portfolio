@@ -216,3 +216,83 @@ footer.site a { color: var(--muted); }
 footer.site a:hover { color: var(--text); }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+
+/* ===== Engineering Blueprint theme. Remove this block to go back to the plain Plex theme. =====
+   Calm navy, one soft blue accent, a faint drawing grid, mono labels, square corners with corner ticks. */
+:root {
+  --bg: #0a1220;
+  --surface: #0d1829;
+  --text: #dbe6f5;
+  --muted: #8ea3bf;
+  --line: #1f3350;
+  --accent: #78c2ff;
+  --accent-ink: #06101d;
+  --grid: rgba(120, 170, 255, 0.055);
+  --grid-major: rgba(120, 170, 255, 0.1);
+}
+
+::selection { background: rgba(120, 194, 255, 0.28); color: #fff; }
+:focus-visible { border-radius: 2px; }
+
+body { position: relative; }
+body::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; height: 1100px; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-major) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 100%);
+}
+
+header.site { background: color-mix(in oklab, var(--bg) 88%, transparent); }
+nav a { font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; }
+nav a[aria-current='page'] { color: var(--accent); border-bottom-color: var(--accent); }
+
+h1 { font-weight: 700; letter-spacing: -0.04em; }
+.hero h1 span { font-weight: 300; color: var(--muted); }
+
+/* Section numbers: 01 / 02 / ... */
+main { counter-reset: sec; }
+.block-head { border-bottom: 1px solid var(--line); padding-bottom: var(--s1); }
+.block-head h2::before {
+  counter-increment: sec; content: counter(sec, decimal-leading-zero) ' /';
+  font: 400 13px var(--mono); letter-spacing: 0.04em; color: var(--accent); margin-right: 0.9em; vertical-align: 0.35em;
+}
+h2 { font-weight: 600; letter-spacing: -0.02em; }
+
+.facts li { border-top-color: var(--line); }
+.facts strong { font-weight: 600; letter-spacing: -0.03em; }
+
+.btn { border-radius: 2px; font-family: var(--mono); font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+.btn.primary { color: var(--accent-ink); }
+.btn.primary:hover { background: #a2d6ff; border-color: #a2d6ff; filter: none; }
+.btn.secondary:hover { background: rgba(120, 194, 255, 0.1); filter: none; }
+
+.card, blockquote.quote { border-radius: 2px; background: var(--surface); position: relative; transition: border-color 0.15s; }
+.card a.stretch::after { border-radius: 2px; }
+.card::before, blockquote.quote::before {
+  content: ''; position: absolute; inset: -1px; pointer-events: none; opacity: 0.5; transition: opacity 0.15s;
+  background:
+    linear-gradient(var(--accent), var(--accent)) top left / 11px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) top left / 1px 11px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) top right / 11px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) top right / 1px 11px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) bottom left / 11px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) bottom left / 1px 11px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) bottom right / 11px 1px no-repeat,
+    linear-gradient(var(--accent), var(--accent)) bottom right / 1px 11px no-repeat;
+}
+.card:hover::before, .card:focus-within::before { opacity: 1; }
+.card:hover, .card:focus-within { border-color: color-mix(in oklab, var(--accent) 55%, var(--line)); }
+
+.tags li, .tag { border-radius: 2px; }
+.filters a { border-radius: 2px; font-family: var(--mono); font-size: 13px; }
+.filters a[aria-current='true'] { color: var(--accent-ink); }
+.subhead { font-family: var(--mono); font-weight: 400; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+.about-top img { border-radius: 2px; }
+.article-body code, .article-body pre, .demo > div { border-radius: 2px; }
+.article-body blockquote { border-left-color: var(--accent); }
+footer.site { font-family: var(--mono); font-size: 13px; }

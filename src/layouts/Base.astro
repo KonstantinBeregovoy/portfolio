@@ -82,5 +82,23 @@ const person = {
         </span>
       </div>
     </footer>
+    <script is:inline>
+      // Pointer "lamp": exposes the cursor position to CSS. Mouse only, skipped for reduced motion.
+      if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const root = document.documentElement;
+        let frame = 0, x = 0, y = 0;
+        addEventListener('pointermove', (e) => {
+          x = e.clientX; y = e.clientY;
+          if (frame) return;
+          frame = requestAnimationFrame(() => {
+            root.style.setProperty('--mx', x + 'px');
+            root.style.setProperty('--my', y + 'px');
+            root.classList.add('has-pointer');
+            frame = 0;
+          });
+        }, { passive: true });
+        root.addEventListener('mouseleave', () => root.classList.remove('has-pointer'));
+      }
+    </script>
   </body>
 </html>

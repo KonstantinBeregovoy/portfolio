@@ -380,3 +380,39 @@ nav a:hover { color: var(--text); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ===== About photo as a cutout: no frame, the open palm points at the text. Remove this block and restore konstantin.jpg in about.astro to go back. ===== */
+.about-top { grid-template-columns: 1fr 400px; align-items: start; }
+.about-top figure { margin-top: var(--s2); }
+.about-top img {
+  border: 0; border-radius: 0; width: 100%; height: auto;
+  filter: drop-shadow(0 0 28px rgba(120, 194, 255, 0.105));
+  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent), linear-gradient(to left, transparent, #000 9%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, #000 78%, transparent), linear-gradient(to left, transparent, #000 9%);
+  mask-composite: intersect;
+}
+@media (max-width: 760px) { .about-top { grid-template-columns: 1fr; } .about-top figure { margin-top: 0; max-width: 340px; } }
+
+/* ===== Pointer lamp: the grid brightens under the cursor. Remove this block and the inline script in Base.astro to go back. ===== */
+body::after, html::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
+}
+html.has-pointer body::after, html.has-pointer::after { opacity: 1; }
+/* lit grid, behind the content */
+body::after {
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, rgba(120, 194, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 194, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(to right, rgba(120, 194, 255, 0.24) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(120, 194, 255, 0.24) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+  -webkit-mask-image: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+  mask-image: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+}
+/* a very faint light over the content itself */
+html::after {
+  z-index: 1;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(120, 194, 255, 0.034), transparent 70%);
+}

@@ -1,0 +1,28 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPosts, formatDate } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const minutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).length / 220));
+---
+<Base title={d.title} description={d.description} type="article" image={d.cover} date={d.date}>
+  <article class="article">
+    <p class="meta"><a href="/blog/">Blog</a></p>
+    <h1>{d.title}</h1>
+    <p class="meta">
+      <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
+      <span>{minutes} min read</span>
+      <span>{d.kind}</span>
+      {d.tags.map((tg) => <a href={`/blog/tag/${tg}/`}>#{tg}</a>)}
+    </p>
+    <div class="article-body"><Content /></div>
+    {d.linkedin && <p style="margin-top: 48px;"><a href={d.linkedin} rel="noopener">Discuss on LinkedIn</a></p>}
+  </article>
+</Base>

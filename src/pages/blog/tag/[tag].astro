@@ -1,0 +1,26 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Filters from '../../../components/Filters.astro';
+import PostList from '../../../components/PostList.astro';
+import { getPosts } from '../../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+  const kinds = [...new Set(posts.map((p) => p.data.kind))];
+  const items = [
+    { href: '/blog/', label: 'All' },
+    ...kinds.map((k) => ({ href: `/blog/type/${k}/`, label: k === 'article' ? 'Articles' : 'Posts' })),
+    ...[...tags].sort().map((tg) => ({ href: `/blog/tag/${tg}/`, label: tg })),
+  ];
+  return tags.map((tag) => ({ params: { tag }, props: { tag, items, posts: posts.filter((p) => p.data.tags.includes(tag as any)) } }));
+}
+const { tag, items, posts } = Astro.props;
+---
+<Base title={`Blog: ${tag}`} description={`Writing tagged ${tag}.`}>
+  <section class="block">
+    <div class="block-head"><h1>Blog: {tag}</h1><a href="/rss.xml">RSS</a></div>
+    <Filters label="Filter writing" items={items} current={`/blog/tag/${tag}/`} />
+    <PostList posts={posts} level="h2" />
+  </section>
+</Base>

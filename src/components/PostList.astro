@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { posts: CollectionEntry<'blog'>[]; level?: 'h2' | 'h3'; }
+const { posts, level = 'h3' } = Astro.props;
+const H = level;
+const fmt = (d: Date) => d.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+---
+<ul class="posts">
+  {posts.map((p) => (
+    <li>
+      <span class="meta"><time datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time> · {p.data.kind}</span>
+      <div>
+        <H><a href={`/blog/${p.id}/`}>{p.data.title}</a></H>
+        <p>{p.data.description}</p>
+        {p.data.tags.length > 0 && <ul class="tags" aria-label="Tags">{p.data.tags.map((tg) => <li>{tg}</li>)}</ul>}
+      </div>
+    </li>
+  ))}
+</ul>

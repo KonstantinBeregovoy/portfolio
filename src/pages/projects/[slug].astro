@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPosts } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((p) => ({ params: { slug: p.id }, props: { project: p } }));
+}
+const { project } = Astro.props;
+const { Content } = await render(project);
+const d = project.data;
+const related = d.post ? (await getPosts()).find((p) => p.id === d.post) : undefined;
+const statusLabel = { live: 'Live', ongoing: 'Ongoing', archived: 'Archived' }[d.status];
+---
+<Base title={d.title} description={d.summary}>
+  <article class="article">
+    <p class="meta"><a href="/projects/">Projects</a></p>
+    <h1>{d.title}</h1>
+    <p class="lede" style="margin-top: 16px;">{d.summary}</p>
+    <p class="meta" style="margin-top: 16px;">{d.year} · {d.role} · {statusLabel}</p>
+    {d.stack.length > 0 && <ul class="tags" aria-label="Stack">{d.stack.map((s) => <li>{s}</li>)}</ul>}
+    {(d.links.length > 0 || related) && (
+      <div class="actions" style="margin: 24px 0 32px;">
+        {d.links.map((l, i) => <a class={i === 0 ? 'btn primary' : 'btn secondary'} href={l.href} rel="noopener">{l.label}</a>)}
+        {related && <a href={`/blog/${related.id}/`}>Read the article</a>}
+      </div>
+    )}
+    <div class="article-body"><Content /></div>
+  </article>
+</Base>

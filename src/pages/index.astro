@@ -1,0 +1,98 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostList from '../components/PostList.astro';
+import { en as t } from '../i18n/en';
+import { getPosts, getProjects } from '../lib/content';
+
+const projects = (await getProjects()).filter((p) => p.data.featured).slice(0, 6);
+const posts = await getPosts();
+const best = posts.filter((p) => p.data.featured).slice(0, 3);
+const bestIds = new Set(best.map((p) => p.id));
+const latest = posts.filter((p) => !bestIds.has(p.id)).slice(0, 3);
+const main = t.experience.filter((e) => e.main);
+const other = t.experience.filter((e) => e.other);
+---
+<Base>
+  <section class="block hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">{t.siteName}<span>{t.role}</span></h1>
+    <p class="lede">{t.tagline}</p>
+    <div class="actions">
+      <a class="btn primary" href="/projects/">Projects</a>
+      <a class="btn secondary" href="/contact/">Contact</a>
+      <a href={t.links.linkedin} rel="me">LinkedIn</a>
+      <a href={t.links.github} rel="me">GitHub</a>
+    </div>
+    <ul class="facts" aria-label="Key facts">
+      {t.facts.map((f) => <li><strong>{f.value}</strong><span>{f.label}</span></li>)}
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="help">
+    <div class="block-head"><h2 id="help">{t.help.title}</h2></div>
+    <div class="grid four">
+      {t.help.items.map((i) => <article class="card"><h3>{i.title}</h3><p>{i.text}</p></article>)}
+    </div>
+  </section>
+
+  {projects.length > 0 && (
+    <section class="block" aria-labelledby="projects">
+      <div class="block-head"><h2 id="projects">Selected projects</h2><a href="/projects/">All projects</a></div>
+      <div class="grid">{projects.map((p) => <ProjectCard project={p} />)}</div>
+    </section>
+  )}
+
+  <section class="block" aria-labelledby="experience">
+    <div class="block-head"><h2 id="experience">Experience</h2><a href="/about/#experience">Full history</a></div>
+    <ol class="timeline">
+      {main.map((e) => (
+        <li>
+          <span class="meta">{e.period}</span>
+          <div><h3>{e.title}, {e.company}</h3><p>{e.text}</p></div>
+        </li>
+      ))}
+    </ol>
+    <p class="subhead">Other experience</p>
+    <ol class="timeline">
+      {other.map((e) => (
+        <li>
+          <span class="meta">{e.period}</span>
+          <div><h3>{e.title}, {e.company}</h3><p>{e.text}</p></div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="block" aria-labelledby="recs">
+    <div class="block-head"><h2 id="recs">Recommendations</h2><a href={`${t.links.linkedin}details/recommendations/`}>On LinkedIn</a></div>
+    <div class="quotes">
+      {t.recommendations.map((r) => (
+        <blockquote class="quote">
+          <p>{r.quote}</p>
+          <footer>
+            <strong>{r.href ? <a href={r.href} rel="noopener">{r.name}</a> : r.name}</strong>
+            {r.role}
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="block" aria-labelledby="writing">
+      <div class="block-head"><h2 id="writing">Writing</h2><a href="/blog/">All writing</a></div>
+      {best.length > 0 && (<><p class="subhead">Best writing</p><PostList posts={best} /></>)}
+      {latest.length > 0 && (<><p class="subhead">Latest writing</p><PostList posts={latest} /></>)}
+    </section>
+  )}
+
+  <section class="block" aria-labelledby="contact">
+    <div class="block-head"><h2 id="contact">{t.contact.heading}</h2></div>
+    <p class="lede">{t.contact.text}</p>
+    <div class="actions">
+      <a class="btn primary" href={`mailto:${t.email}`}>{t.email}</a>
+      <a href={t.links.linkedin} rel="me">LinkedIn</a>
+      <a href={t.links.github} rel="me">GitHub</a>
+    </div>
+  </section>
+</Base>

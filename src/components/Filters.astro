@@ -1,0 +1,10 @@
+---
+interface Item { href: string; label: string; }
+interface Props { label: string; items: Item[]; current: string; }
+const { label, items, current } = Astro.props;
+---
+<nav aria-label={label}>
+  <ul class="filters">
+    {items.map((i) => <li><a href={i.href} aria-current={i.href === current ? 'true' : undefined}>{i.label}</a></li>)}
+  </ul>
+</nav>

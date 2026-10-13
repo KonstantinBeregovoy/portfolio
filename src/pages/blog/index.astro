@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import Filters from '../../components/Filters.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/content';
+
+const posts = await getPosts();
+const tags = [...new Set(posts.flatMap((p) => p.data.tags))].sort();
+const kinds = [...new Set(posts.map((p) => p.data.kind))];
+const items = [
+  { href: '/blog/', label: 'All' },
+  ...kinds.map((k) => ({ href: `/blog/type/${k}/`, label: k === 'article' ? 'Articles' : 'Posts' })),
+  ...tags.map((tg) => ({ href: `/blog/tag/${tg}/`, label: tg })),
+];
+---
+<Base title="Blog" description="Articles and posts on frontend architecture, web standards, accessibility and AI-assisted engineering.">
+  <section class="block">
+    <div class="block-head"><h1>Blog</h1><a href="/rss.xml">RSS</a></div>
+    <p class="lede" style="margin: 0 0 32px;">Frontend architecture, web standards, accessibility and AI-assisted engineering.</p>
+    <Filters label="Filter writing" items={items} current="/blog/" />
+    <PostList posts={posts} level="h2" />
+  </section>
+</Base>

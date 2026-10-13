@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import { en as t } from '../i18n/en';
+---
+<Base title="About" description="Frontend tech lead with 15+ years of experience: React, TypeScript, architecture, accessibility, AI-assisted engineering.">
+  <section class="block about-top">
+    <div>
+      <h1>About</h1>
+      <div class="lede" style="margin-top: 24px;">
+        {t.about.intro.map((p) => <p>{p}</p>)}
+      </div>
+      <p><a href="/contact/">Get in touch</a></p>
+    </div>
+    <figure>
+      <img src="/img/konstantin.jpg" alt="Konstantin Beregovoy in a ReactNext 2020 t-shirt, looking aside with an open palm raised" width="900" height="847" />
+    </figure>
+  </section>
+
+  <section class="block" id="experience" aria-labelledby="exp">
+    <div class="block-head"><h2 id="exp">Experience</h2></div>
+    <ol class="timeline">
+      {t.experience.map((e) => (
+        <li>
+          <span class="meta">{e.period}</span>
+          <div>
+            <h3>{e.title}, {e.company}</h3>
+            <p class="meta" style="margin: 2px 0 0;">{e.place}</p>
+            {e.text && <p>{e.text}</p>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="block" aria-labelledby="skills">
+    <div class="block-head"><h2 id="skills">Skills</h2></div>
+    <div class="skills">
+      {t.skills.map((g) => (
+        <div>
+          <h3>{g.group}</h3>
+          <ul class="tags">{g.items.map((i) => <li>{i}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="block" aria-labelledby="edu">
+    <div class="block-head"><h2 id="edu">Education</h2></div>
+    <ul class="plain">
+      {t.education.map((e) => <li><strong>{e.school}</strong><span class="muted">{e.degree}, {e.period}</span></li>)}
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="research">
+    <div class="block-head"><h2 id="research">Research</h2></div>
+    <ul class="plain">
+      {t.research.map((r) => (
+        <li>
+          <strong>{r.href ? <a href={r.href} rel="noopener">{r.title}</a> : r.title}</strong>
+          <span class="muted">{r.venue}, {r.year}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="vol">
+    <div class="block-head"><h2 id="vol">Volunteering</h2></div>
+    <ul class="plain">
+      {t.volunteering.map((v) => <li><strong>{v.title}</strong><span class="muted">{v.period}. {v.text}</span></li>)}
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="lang">
+    <div class="block-head"><h2 id="lang">Languages</h2></div>
+    <p>{t.languages.join(', ')}</p>
+  </section>
+</Base>

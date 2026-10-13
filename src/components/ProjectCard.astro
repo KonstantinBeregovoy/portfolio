@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { project: CollectionEntry<'projects'>; level?: 'h2' | 'h3'; }
+const { project, level = 'h3' } = Astro.props;
+const H = level;
+const d = project.data;
+const typeLabel = { opensource: 'Open source', standards: 'Standards', professional: 'Professional', personal: 'Personal' }[d.type];
+---
+<article class="card">
+  <span class="meta">{typeLabel} · {d.year}</span>
+  <H><a class="stretch" href={`/projects/${project.id}/`}>{d.title}</a></H>
+  <p>{d.summary}</p>
+  {d.stack.length > 0 && <ul class="tags" aria-label="Stack">{d.stack.slice(0, 4).map((s) => <li>{s}</li>)}</ul>}
+</article>

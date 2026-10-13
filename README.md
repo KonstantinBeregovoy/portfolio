@@ -44,6 +44,13 @@ npm run dev      # локально на http://localhost:4321
 npm run build    # сборка в dist/
 ```
 
+## Как выложено сейчас
+
+- **Хостинг**: Cloudflare Workers со статикой (Workers Builds). Конфиг: `wrangler.jsonc` (имя Worker `portfolio`, папка `dist`, неизвестные адреса отдают `404.html`).
+- **Автодеплой**: любой `git push` в `main` собирает сайт (`npm run build`) и публикует его за ~45 секунд. Остальные ветки получают preview-адрес вида `*-portfolio.<аккаунт>.workers.dev`. Откат: Cloudflare, Worker `portfolio`, Deployments, предыдущая версия.
+- **Домен**: `bereg.dev` привязан к Worker, `www.bereg.dev` перенаправляет на него (Redirect Rule, 301), `http` перенаправляется на `https` («Always Use HTTPS»). Production-адрес `workers.dev` выключен, чтобы не было дубля сайта.
+- **Защита репозитория**: пишет в него только владелец; правило на `main` запрещает force-push и удаление ветки; включены secret scanning с push protection и Dependabot. На аккаунтах GitHub и Cloudflare должна быть включена 2FA.
+
 ## Публикация
 
 1. Создать репозиторий на GitHub и загрузить проект.

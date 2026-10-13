@@ -42,7 +42,7 @@ export const GET: APIRoute = async () => {
     '',
     '## Contact',
     '',
-    `- Email: ${t.email}`,
+    ...(t.showEmail ? [`- Email: ${t.email}`] : []),
     `- LinkedIn: ${t.links.linkedin}`,
     `- GitHub: ${t.links.github}`,
     '',

@@ -17,7 +17,7 @@ export function personNode(): JsonLd {
     description: t.tagline,
     url: `${SITE}/`,
     image: abs('/img/konstantin.jpg'),
-    email: t.email,
+    ...(t.showEmail ? { email: t.email } : {}),
     homeLocation: { '@type': 'Place', name: 'Israel' },
     knowsLanguage: t.languages,
     knowsAbout: t.skills.flatMap((group) => group.items),

@@ -1,13 +1,16 @@
 ---
 import Base from '../layouts/Base.astro';
 import { en as t } from '../i18n/en';
+const description = t.showEmail
+  ? 'Contact Konstantin Beregovoy about frontend leadership and consulting: email, LinkedIn and GitHub.'
+  : 'Contact Konstantin Beregovoy about frontend leadership and consulting: LinkedIn and GitHub.';
 ---
-<Base pageType="ContactPage" title="Contact" description="Contact Konstantin Beregovoy about frontend leadership and consulting: email, LinkedIn and GitHub.">
+<Base pageType="ContactPage" title="Contact" description={description}>
   <section class="block">
     <h1>{t.contact.heading}</h1>
     <p class="lede" style="margin: 16px 0 32px;">{t.contact.text}</p>
     <ul class="plain">
-      <li><strong>Email</strong><a href={`mailto:${t.email}`}>{t.email}</a></li>
+      {t.showEmail && <li><strong>Email</strong><a href={`mailto:${t.email}`}>{t.email}</a></li>}
       <li><strong>LinkedIn</strong><a href={t.links.linkedin} rel="me">linkedin.com/in/konstantin-beregovoy</a></li>
       <li><strong>GitHub</strong><a href={t.links.github} rel="me">github.com/KonstantinBeregovoy</a></li>
     </ul>

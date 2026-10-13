@@ -90,9 +90,18 @@ const other = t.experience.filter((e) => e.other);
     <div class="block-head"><h2 id="contact">{t.contact.heading}</h2></div>
     <p class="lede">{t.contact.text}</p>
     <div class="actions">
-      <a class="btn primary" href={`mailto:${t.email}`}>{t.email}</a>
-      <a href={t.links.linkedin} rel="me">LinkedIn</a>
-      <a href={t.links.github} rel="me">GitHub</a>
+      {t.showEmail ? (
+        <>
+          <a class="btn primary" href={`mailto:${t.email}`}>{t.email}</a>
+          <a href={t.links.linkedin} rel="me">LinkedIn</a>
+          <a href={t.links.github} rel="me">GitHub</a>
+        </>
+      ) : (
+        <>
+          <a class="btn primary" href={t.links.linkedin} rel="me">LinkedIn</a>
+          <a class="btn secondary" href={t.links.github} rel="me">GitHub</a>
+        </>
+      )}
     </div>
   </section>
 </Base>

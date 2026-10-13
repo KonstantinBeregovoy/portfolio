@@ -9,6 +9,9 @@ export const en = {
   tagline:
     'I build and lead frontend teams for complex products in fintech, platforms and developer tools. React, TypeScript, accessibility and web standards.',
   email: 'konstantin@bereg.dev',
+  // Keep false until the mailbox exists (Cloudflare Email Routing). Turning it on shows the address in the footer,
+  // on Home and Contact, and adds it to the structured data and llms.txt.
+  showEmail: false,
 
   nav: [
     { href: '/', label: 'Home' },

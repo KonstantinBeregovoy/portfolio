@@ -236,8 +236,10 @@ blockquote.quote footer a { color: inherit; }
 .filters a[aria-current='true'] { background: var(--amber); color: var(--accent-ink); border-color: var(--amber); }
 
 /* ---------- Article ---------- */
+.article-cover { width: 100%; height: auto; margin: 0 0 var(--s4); border: 1px solid var(--line); border-radius: 2px; }
 .article h1 { margin: var(--s1) 0 var(--s2); }
 .article .meta { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s2); margin-bottom: var(--s4); }
+.article, .article-body { min-width: 0; max-width: 100%; }
 .article-body { max-width: 68ch; }
 .article-body h2 { margin: var(--s4) 0 var(--s2); font-size: 30px; }
 .article-body h3 { margin: var(--s3) 0 var(--s1); }
@@ -245,8 +247,12 @@ blockquote.quote footer a { color: inherit; }
 .article-body li { margin-bottom: 6px; }
 .article-body img { border-radius: 8px; margin: var(--s2) 0; }
 .article-body code { font-family: var(--mono); font-size: 0.9em; background: var(--surface); border: 1px solid var(--line); border-radius: 2px; padding: 1px 5px; }
-.article-body pre { background: var(--surface); border: 1px solid var(--line); border-radius: 2px; padding: var(--s2); overflow-x: auto; font-size: 14px; line-height: 1.5; }
+.article-body pre { max-width: 100%; background: var(--surface); border: 1px solid var(--line); border-radius: 2px; padding: var(--s2); overflow-x: auto; font-size: 14px; line-height: 1.5; }
 .article-body pre code { background: none; border: 0; padding: 0; }
+.article-body .table-scroll { max-width: 100%; margin: 0 0 var(--s2); overflow-x: auto; border: 1px solid var(--line); border-radius: 2px; }
+.article-body table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.article-body th, .article-body td { padding: 8px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.article-body th { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--muted); }
 .article-body blockquote { border-left: 3px solid var(--accent); margin: var(--s2) 0; padding: 0 var(--s2); color: var(--muted); }
 .demo { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); margin: var(--s2) 0; }
 .demo > div { background: var(--surface); border: 1px solid var(--line); border-radius: 2px; padding: var(--s2); }

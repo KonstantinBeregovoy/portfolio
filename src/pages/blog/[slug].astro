@@ -13,12 +13,17 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 const d = post.data;
 const minutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).length / 220));
+// Some articles keep their title as the Markdown H1. Do not print it twice.
+const titleInBody = (post.body ?? '').trimStart().startsWith('# ');
 ---
 <Base
   title={d.title}
   description={d.description}
   type="article"
   image={d.cover}
+  imageAlt={d.coverAlt}
+  imageWidth={d.cover ? 1200 : undefined}
+  imageHeight={d.cover ? 630 : undefined}
   date={d.date}
   jsonLd={[
     {
@@ -43,7 +48,7 @@ const minutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).length / 2
 >
   <article class="article">
     <p class="meta"><a href="/blog/">Blog</a></p>
-    <h1>{d.title}</h1>
+    {!titleInBody && <h1>{d.title}</h1>}
     <p class="meta">
       <a href="/about/" rel="author">{t.siteName}</a>
       <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
@@ -51,6 +56,7 @@ const minutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).length / 2
       <span>{d.kind}</span>
       {d.tags.map((tg) => <a href={`/blog/tag/${tg}/`}>#{tg}</a>)}
     </p>
+    {d.cover && <img class="article-cover" src={d.cover} alt={d.coverAlt ?? d.title} width="1200" height="630" />}
     <div class="article-body"><Content /></div>
     {d.linkedin && <p style="margin-top: 48px;"><a href={d.linkedin} rel="noopener">Discuss on LinkedIn</a></p>}
   </article>

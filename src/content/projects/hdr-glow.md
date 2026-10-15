@@ -9,6 +9,7 @@ stack: ['TypeScript', 'React', 'Web Workers', 'OKLab']
 hdr: true
 featured: true
 order: 10
+post: hdr-glow
 links:
   - { label: 'Live tool', href: 'https://glow.bereg.dev' }
   - { label: 'GitHub', href: 'https://github.com/KonstantinBeregovoy/hdr-glow' }

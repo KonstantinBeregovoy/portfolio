@@ -8,6 +8,9 @@ interface Props {
   description?: string;
   type?: 'website' | 'article';
   image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   date?: Date;
   noindex?: boolean;
   pageType?: string;
@@ -18,6 +21,9 @@ const {
   description = t.tagline,
   type = 'website',
   image = '/img/logo.png',
+  imageAlt,
+  imageWidth,
+  imageHeight,
   date,
   noindex = false,
   pageType = 'WebPage',
@@ -32,6 +38,7 @@ const year = new Date().getFullYear();
 const extra = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const ld = graphLd({ pageType, title: fullTitle, description, url: canonical.toString(), extra });
 const card = image === '/img/logo.png' ? 'summary' : 'summary_large_image';
+const imageLabel = imageAlt ?? title ?? t.siteName;
 ---
 <!doctype html>
 <html lang={t.lang}>
@@ -64,12 +71,16 @@ const card = image === '/img/logo.png' ? 'summary' : 'summary_large_image';
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={title ?? t.siteName} />
+    <meta property="og:image:alt" content={imageLabel} />
+    {imageWidth && <meta property="og:image:width" content={String(imageWidth)} />}
+    {imageHeight && <meta property="og:image:height" content={String(imageHeight)} />}
     {date && <meta property="article:published_time" content={date.toISOString()} />}
     {date && <meta property="article:author" content={t.siteName} />}
     <meta name="twitter:card" content={card} />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    {card === 'summary_large_image' && <meta name="twitter:image" content={ogImage} />}
+    {card === 'summary_large_image' && <meta name="twitter:image:alt" content={imageLabel} />}
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </head>
   <body>

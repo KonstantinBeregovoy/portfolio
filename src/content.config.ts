@@ -10,7 +10,7 @@ const blog = defineCollection({
   loader: glob({ pattern, base: './src/content/blog' }),
   schema: z.object({
     title: z.string().max(100),
-    description: z.string().max(200),
+    description: z.string().max(280),
     date: z.coerce.date(),
     kind: z.enum(['article', 'post']).default('article'),
     tags: z.array(z.enum(BLOG_TAGS)).max(3).default([]),
@@ -18,6 +18,7 @@ const blog = defineCollection({
     linkedin: z.string().url().optional(),
     // Preview image path in /public, 1200x630.
     cover: z.string().optional(),
+    coverAlt: z.string().optional(),
     // true pins the entry in "Best writing" on Home (keep at most three).
     featured: z.boolean().default(false),
     // true keeps the entry off the site.

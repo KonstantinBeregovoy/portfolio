@@ -5,7 +5,7 @@ date: 2026-04-06
 kind: post
 tags: ['frontend']
 linkedin: 'https://www.linkedin.com/feed/update/urn:li:activity:7446950866097463296/'
-featured: true
+featured: false
 draft: false
 ---
 

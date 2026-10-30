@@ -68,6 +68,7 @@ export function graphLd(opts: { pageType: string; title: string; description: st
         inLanguage: t.lang,
         isPartOf: { '@id': SITE_ID },
         about: { '@id': PERSON_ID },
+        ...(opts.pageType === 'ProfilePage' ? { mainEntity: { '@id': PERSON_ID } } : {}),
       },
       ...(opts.extra ?? []),
     ],

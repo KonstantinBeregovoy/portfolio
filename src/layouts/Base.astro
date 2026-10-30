@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { en as t } from '../i18n/en';
 import { graphLd, type JsonLd } from '../lib/seo';
+import { externalAttrs } from '../lib/external';
 
 interface Props {
   title?: string;
@@ -107,8 +108,8 @@ const imageLabel = imageAlt ?? title ?? t.siteName;
       <div class="wrap">
         <span>© {year} {t.siteName}</span>
         <span>
-          <a href={t.links.linkedin} rel="me">LinkedIn</a> ·
-          <a href={t.links.github} rel="me">GitHub</a> ·
+          <a href={t.links.linkedin} {...externalAttrs(t.links.linkedin, 'me')}>LinkedIn</a> ·
+          <a href={t.links.github} {...externalAttrs(t.links.github, 'me')}>GitHub</a> ·
           {t.showEmail && (<><a href={`mailto:${t.email}`}>{t.email}</a> ·</>)}
           <a href="/rss.xml">RSS</a>
         </span>

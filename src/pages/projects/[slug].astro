@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { getPosts } from '../../lib/content';
 import { PERSON_ID, breadcrumb, abs } from '../../lib/seo';
+import { externalAttrs } from '../../lib/external';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -47,7 +48,15 @@ const statusLabel = { live: 'Live', ongoing: 'Ongoing', archived: 'Archived' }[d
     {d.stack.length > 0 && <ul class="tags" aria-label="Stack">{d.stack.map((s) => <li>{s}</li>)}</ul>}
     {(d.links.length > 0 || related) && (
       <div class="actions" style="margin: 24px 0 32px;">
-        {d.links.map((l, i) => <a class={i === 0 ? 'btn primary' : 'btn secondary'} href={l.href} rel="noopener">{l.label}</a>)}
+        {d.links.map((l, i) => (
+          <a
+            class={i === 0 ? 'btn primary' : 'btn secondary'}
+            href={l.href}
+            {...externalAttrs(l.href)}
+          >
+            {l.label}
+          </a>
+        ))}
         {related && <a href={`/blog/${related.id}/`}>Read the article</a>}
       </div>
     )}

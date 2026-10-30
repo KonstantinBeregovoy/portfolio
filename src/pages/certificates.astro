@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import { PERSON_ID } from '../lib/seo';
+import { externalAttrs } from '../lib/external';
 
 const all = (await getCollection('certificates')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const groups = [
@@ -51,13 +52,13 @@ const fmt = (d: Date) => d.toLocaleDateString('en-GB', { year: 'numeric', month:
               <article class="card">
                 <span class="meta">{c.data.issuer} · {fmt(c.data.date)}</span>
                 <h3>{c.data.title}</h3>
-                {c.data.credentialUrl && <p><a href={c.data.credentialUrl} rel="noopener">Verify credential</a></p>}
+                {c.data.credentialUrl && <p><a href={c.data.credentialUrl} {...externalAttrs(c.data.credentialUrl)}>Verify credential</a></p>}
                 {parts.length > 0 && (
                   <details>
                     <summary>Included courses ({parts.length})</summary>
                     <ul>
                       {parts.map((p) => (
-                        <li>{p.data.credentialUrl ? <a href={p.data.credentialUrl} rel="noopener">{p.data.title}</a> : p.data.title}</li>
+                        <li>{p.data.credentialUrl ? <a href={p.data.credentialUrl} {...externalAttrs(p.data.credentialUrl)}>{p.data.title}</a> : p.data.title}</li>
                       ))}
                     </ul>
                   </details>

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { en as t } from '../i18n/en';
+import { externalAttrs } from '../lib/external';
 ---
 <Base pageType="ProfilePage" title="About" description="Frontend tech lead with 15+ years of experience: React, TypeScript, architecture, accessibility, AI-assisted engineering.">
   <section class="block about-top">
@@ -56,7 +57,7 @@ import { en as t } from '../i18n/en';
     <ul class="plain">
       {t.research.map((r) => (
         <li>
-          <strong>{r.href ? <a href={r.href} rel="noopener">{r.title}</a> : r.title}</strong>
+          <strong>{r.href ? <a href={r.href} {...externalAttrs(r.href)}>{r.title}</a> : r.title}</strong>
           <span class="muted">{r.venue}, {r.year}</span>
         </li>
       ))}

@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import { getPosts, formatDate } from '../../lib/content';
 import { en as t } from '../../i18n/en';
 import { PERSON_ID, breadcrumb, abs } from '../../lib/seo';
+import { externalAttrs } from '../../lib/external';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -58,6 +59,6 @@ const titleInBody = (post.body ?? '').trimStart().startsWith('# ');
     </p>
     {d.cover && <img class="article-cover" src={d.cover} alt={d.coverAlt ?? d.title} width="1200" height="630" />}
     <div class="article-body"><Content /></div>
-    {d.linkedin && <p style="margin-top: 48px;"><a href={d.linkedin} rel="noopener">Discuss on LinkedIn</a></p>}
+    {d.linkedin && <p style="margin-top: 48px;"><a href={d.linkedin} {...externalAttrs(d.linkedin)}>Discuss on LinkedIn</a></p>}
   </article>
 </Base>

@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { satteri } from '@astrojs/markdown-satteri';
+import { leavesSite } from './src/lib/external.ts';
 
 // Tables scroll inside a box. Code blocks are keyboard-focusable. Shiki already highlights.
 // Tags written in prose (`<style>`, `<pre>`) are Markdown HTML. Left as tags, an
@@ -37,6 +38,21 @@ const articleMarkdown = {
       filter: ['pre'],
       visit(node, ctx) {
         ctx.setProperty(node, 'tabindex', '0');
+      },
+    },
+    {
+      filter: ['a'],
+      visit(node, ctx) {
+        const href = node.properties?.href;
+        const value = Array.isArray(href) ? href[0] : href;
+        if (typeof value !== 'string' || !leavesSite(value)) return;
+        ctx.setProperty(node, 'target', '_blank');
+        const current = node.properties?.rel;
+        const text = Array.isArray(current) ? current.join(' ') : String(current ?? '');
+        const tokens = new Set(text.split(/\s+/).filter(Boolean));
+        tokens.add('noopener');
+        tokens.add('noreferrer');
+        ctx.setProperty(node, 'rel', [...tokens].join(' '));
       },
     },
   ],

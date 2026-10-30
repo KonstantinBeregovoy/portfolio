@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { en as t } from '../i18n/en';
+import { externalAttrs } from '../lib/external';
 const description = t.showEmail
   ? 'Contact Konstantin Beregovoy about frontend leadership and consulting: email, LinkedIn and GitHub.'
   : 'Contact Konstantin Beregovoy about frontend leadership and consulting: LinkedIn and GitHub.';
@@ -11,8 +12,8 @@ const description = t.showEmail
     <p class="lede" style="margin: 16px 0 32px;">{t.contact.text}</p>
     <ul class="plain">
       {t.showEmail && <li><strong>Email</strong><a href={`mailto:${t.email}`}>{t.email}</a></li>}
-      <li><strong>LinkedIn</strong><a href={t.links.linkedin} rel="me">linkedin.com/in/konstantin-beregovoy</a></li>
-      <li><strong>GitHub</strong><a href={t.links.github} rel="me">github.com/KonstantinBeregovoy</a></li>
+      <li><strong>LinkedIn</strong><a href={t.links.linkedin} {...externalAttrs(t.links.linkedin, 'me')}>linkedin.com/in/konstantin-beregovoy</a></li>
+      <li><strong>GitHub</strong><a href={t.links.github} {...externalAttrs(t.links.github, 'me')}>github.com/KonstantinBeregovoy</a></li>
     </ul>
   </section>
 </Base>

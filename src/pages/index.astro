@@ -4,6 +4,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import PostList from '../components/PostList.astro';
 import { en as t } from '../i18n/en';
 import { getPosts, getProjects } from '../lib/content';
+import { externalAttrs } from '../lib/external';
 
 const projects = (await getProjects()).filter((p) => p.data.featured).slice(0, 6);
 const posts = await getPosts();
@@ -20,8 +21,8 @@ const other = t.experience.filter((e) => e.other);
     <div class="actions">
       <a class="btn primary" href="/projects/">Projects</a>
       <a class="btn secondary" href="/contact/">Contact</a>
-      <a href={t.links.linkedin} rel="me">LinkedIn</a>
-      <a href={t.links.github} rel="me">GitHub</a>
+      <a href={t.links.linkedin} {...externalAttrs(t.links.linkedin, 'me')}>LinkedIn</a>
+      <a href={t.links.github} {...externalAttrs(t.links.github, 'me')}>GitHub</a>
     </div>
     <ul class="facts" aria-label="Key facts">
       {t.facts.map((f) => <li><strong>{f.value}</strong><span>{f.label}</span></li>)}
@@ -64,13 +65,13 @@ const other = t.experience.filter((e) => e.other);
   </section>
 
   <section class="block" aria-labelledby="recs">
-    <div class="block-head"><h2 id="recs">Recommendations</h2><a href={`${t.links.linkedin}details/recommendations/`}>On LinkedIn</a></div>
+    <div class="block-head"><h2 id="recs">Recommendations</h2><a href={`${t.links.linkedin}details/recommendations/`} {...externalAttrs(`${t.links.linkedin}details/recommendations/`)}>On LinkedIn</a></div>
     <div class="quotes">
       {t.recommendations.map((r) => (
         <blockquote class="quote">
           <p>{r.quote}</p>
           <footer>
-            <strong>{r.href ? <a href={r.href} rel="noopener">{r.name}</a> : r.name}</strong>
+            <strong>{r.href ? <a href={r.href} {...externalAttrs(r.href)}>{r.name}</a> : r.name}</strong>
             {r.role}
           </footer>
         </blockquote>
@@ -93,13 +94,13 @@ const other = t.experience.filter((e) => e.other);
       {t.showEmail ? (
         <>
           <a class="btn primary" href={`mailto:${t.email}`}>{t.email}</a>
-          <a href={t.links.linkedin} rel="me">LinkedIn</a>
-          <a href={t.links.github} rel="me">GitHub</a>
+          <a href={t.links.linkedin} {...externalAttrs(t.links.linkedin, 'me')}>LinkedIn</a>
+          <a href={t.links.github} {...externalAttrs(t.links.github, 'me')}>GitHub</a>
         </>
       ) : (
         <>
-          <a class="btn primary" href={t.links.linkedin} rel="me">LinkedIn</a>
-          <a class="btn secondary" href={t.links.github} rel="me">GitHub</a>
+          <a class="btn primary" href={t.links.linkedin} {...externalAttrs(t.links.linkedin, 'me')}>LinkedIn</a>
+          <a class="btn secondary" href={t.links.github} {...externalAttrs(t.links.github, 'me')}>GitHub</a>
         </>
       )}
     </div>

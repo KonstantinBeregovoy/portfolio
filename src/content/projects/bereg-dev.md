@@ -6,7 +6,7 @@ year: 2026
 role: 'Author'
 status: 'live'
 stack: ['Astro', 'CSS', 'Cloudflare', 'Ultra HDR', 'IBM Plex']
-featured: false
+featured: true
 order: 50
 links:
   - { label: 'Source', href: 'https://github.com/KonstantinBeregovoy/portfolio' }

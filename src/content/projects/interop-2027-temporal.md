@@ -6,7 +6,7 @@ year: 2026
 role: 'Author'
 status: 'ongoing'
 stack: ['Temporal', 'Web standards', 'web-platform-tests']
-featured: false
+featured: true
 order: 40
 links:
   - { label: 'Proposal on GitHub', href: 'https://github.com/web-platform-tests/interop/issues/1381' }

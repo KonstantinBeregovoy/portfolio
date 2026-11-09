@@ -1,6 +1,6 @@
 ---
 title: 'Shahmatland'
-summary: 'Chess education platform that grew from a personal MVP to 20+ schools and 13+ instructors.'
+summary: 'Chess education platform that grew from a personal MVP to almost 10,000 users, 20+ schools and 13+ instructors.'
 type: 'personal'
 year: 2024
 role: 'Founder and Technical Lead'
@@ -19,16 +19,18 @@ Chess lessons in schools needed one place for lessons, puzzles and live games, i
 ## What I did
 
 - Designed a modular frontend on React 19 and Vite with a WebSocket layer for real-time multiplayer games and Stockfish-powered game analysis.
-- Introduced a spec-driven development workflow with AI tools (Cursor, Kiro): more than 90% of the code is AI-generated, under strict architectural control and with 80% test coverage (Vitest).
+- Introduced a spec-driven development workflow with AI tools (Cursor, Kiro): more than 95% of the code is AI-written, under strict architectural control and with test coverage above 80% (Vitest).
 - Migrated the build from Create React App to Vite: builds take 1 to 2 seconds and the entry bundle is about 75 KB gzipped.
 - Led a volunteer team of teachers and a grandmaster who build lessons and puzzles.
 
 ## Result
 
-Used by 20+ schools and 13+ professional chess instructors, available in 5 languages. It is an installable PWA, now in testing as a native Google Play app.
+Almost 10,000 users, 20+ schools and 13+ professional chess instructors, available in 5 languages; schools run competitions on it. It is an installable PWA, now in testing as a native Google Play app.
+
+The game screen, heavy with images: LCP 360 ms, CLS 0.012, INP 112 ms, Lighthouse Performance 99.
 
 ## Decisions
 
-- Compliance first: Ministry of Education requirements, SOC security audits passed, WCAG accessibility for inclusive learning.
+- Compliance first: passed an accessibility audit and security checks, including a penetration test, and was approved by the Ministry of Education.
 - AI writes most of the code, but the architecture, the specs and the tests stay under human control.
 - A lean entry bundle, because many students use school devices and slow networks.

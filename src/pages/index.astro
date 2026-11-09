@@ -12,7 +12,7 @@ const best = posts.filter((p) => p.data.featured).slice(0, 3);
 const bestIds = new Set(best.map((p) => p.id));
 const latest = posts.filter((p) => !bestIds.has(p.id)).slice(0, 3);
 const main = t.experience.filter((e) => e.main);
-const other = t.experience.filter((e) => e.other);
+const other = t.experience.filter((e) => 'other' in e && e.other);
 ---
 <Base pageType="ProfilePage">
   <section class="block hero" aria-labelledby="hero-title">
@@ -53,15 +53,19 @@ const other = t.experience.filter((e) => e.other);
         </li>
       ))}
     </ol>
-    <p class="subhead">Other experience</p>
-    <ol class="timeline">
-      {other.map((e) => (
-        <li>
-          <span class="meta">{e.period}</span>
-          <div><h3>{e.title}, {e.company}</h3><p>{e.text}</p></div>
-        </li>
-      ))}
-    </ol>
+    {other.length > 0 && (
+      <>
+        <p class="subhead">Other experience</p>
+        <ol class="timeline">
+          {other.map((e) => (
+            <li>
+              <span class="meta">{e.period}</span>
+              <div><h3>{e.title}, {e.company}</h3><p>{e.text}</p></div>
+            </li>
+          ))}
+        </ol>
+      </>
+    )}
   </section>
 
   <section class="block" aria-labelledby="recs">

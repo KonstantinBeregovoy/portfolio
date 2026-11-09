@@ -51,7 +51,7 @@ export const en = {
       },
       {
         title: 'Accessible and audit-ready',
-        text: 'WCAG compliance and SOC audit preparation built into the frontend, plus open source work on accessibility validation.',
+        text: 'WCAG compliance and SOC 2 preparation built into the frontend, plus open source work on accessibility validation.',
       },
     ],
   },
@@ -67,17 +67,33 @@ export const en = {
   // Experience. "main" roles show on Home, everything shows on About.
   experience: [
     {
+      company: 'OleOle',
+      title: 'Frontend Technical Lead (consultant, part-time)',
+      period: 'Jul 2026 to now',
+      place: 'Remote',
+      main: true,
+      text: 'Building the frontend of a pre-launch social platform for football fans in a pnpm monorepo (React 19, TypeScript, Vite, Tailwind with design tokens): a Mini Programs developer portal, a wallet and a feed. Added unit and e2e tests to CI, proposed code standards (Baseline-only, lint-enforced) and interview frontend candidates.',
+    },
+    {
+      company: 'Shahmatland',
+      title: 'Founder and Technical Lead (volunteer)',
+      period: 'Dec 2024 to now',
+      place: 'Israel',
+      main: true,
+      text: 'A chess education platform with almost 10,000 users, 20+ schools and 13+ instructors, available in 5 languages and approved by the Ministry of Education. Built with a volunteer team of teachers and a grandmaster.',
+    },
+    {
       company: 'Payouts.com',
       title: 'Frontend Team Lead (Founding Engineer)',
-      period: '2022 to 2026',
+      period: 'Dec 2022 to Jan 2026',
       place: 'Herzliya',
       main: true,
-      text: 'First engineering hire. Built the frontend from scratch and grew the team to 8 engineers. Led AI document parsing with OpenAI and Gemini, a unified Storybook design system that cut time to market by 70%, AI-assisted code review, and frontend preparation for SOC audits.',
+      text: 'First engineering hire. Built the frontend from scratch and grew the team to 8 engineers. Led AI document parsing with OpenAI and Gemini, a unified Storybook design system that cut time to market by 70%, AI-assisted code review, and frontend preparation for SOC 2, which the product passed.',
     },
     {
       company: 'Perimeter 81, a Check Point company',
       title: 'Senior Frontend Developer (early hire)',
-      period: '2019 to 2022',
+      period: 'Dec 2019 to Nov 2022',
       place: 'Tel Aviv',
       main: true,
       text: 'Built the internal analytics platform that tracked contracts, payments and 100x customer growth, the fleet monitoring dashboards, and the first company-wide design system, which passed technical audits during the Check Point acquisition.',
@@ -85,26 +101,10 @@ export const en = {
     {
       company: 'NGsoft',
       title: 'Frontend Developer',
-      period: '2017 to 2019',
+      period: 'Nov 2017 to Nov 2019',
       place: 'Petah Tikva',
       main: true,
       text: 'Fintech, government and e-commerce projects, including banking and retail clients (Discount Bank, Shufersal). Worked in a secure, isolated environment on accessibility verification and certification for an official government defense website.',
-    },
-    {
-      company: 'OleOle',
-      title: 'Frontend Technical Lead (Consultant)',
-      period: '2026 to now',
-      place: 'Remote',
-      other: true,
-      text: 'Advisory role, a few hours a week. Helping an early-stage football fan platform set up frontend practices: test coverage, shared design tokens, browser support standards and hiring.',
-    },
-    {
-      company: 'Shahmatland',
-      title: 'Founder and Technical Lead (volunteer)',
-      period: '2024 to now',
-      place: 'Israel',
-      other: true,
-      text: 'A chess education platform used by 20+ schools and 13+ instructors, available in 5 languages. Built with a volunteer team of teachers and a grandmaster.',
     },
     {
       company: 'Elpisor',

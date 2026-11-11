@@ -203,6 +203,12 @@ section.block:first-child { margin-top: 0; }
 .card:hover, .card:focus-within { border-color: color-mix(in oklab, var(--amber) 45%, var(--line)); }
 .card:hover::before, .card:focus-within::before { --tick: 22px; --tc: var(--amber); opacity: 1; }
 
+/* Book box under the title of a project page (field "book" of a project). */
+.book-box { margin-top: var(--s3); max-width: 62ch; gap: 4px; }
+.article .book-box .meta { margin: 0 0 4px; font-size: 13px; }
+.book-box .book-box-title { color: var(--text); font-weight: 600; font-size: 18px; line-height: 1.35; }
+.book-box p:last-child { margin-top: var(--s1); }
+
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: var(--s1) 0 0; padding: 0; list-style: none; }
 .tags li, .tag { font: 12px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 2px; padding: 2px 10px; }
 

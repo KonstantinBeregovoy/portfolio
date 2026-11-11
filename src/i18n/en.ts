@@ -186,6 +186,10 @@ export const en = {
       isbn: '9798140926632',
       href: 'https://www.amazon.com/dp/B0HR65PS11',
       store: 'Amazon',
+      // Text of every link to the store page, so one destination has one name.
+      cta: 'Book on Amazon',
+      // Label of the book box on the project page.
+      label: 'Book',
       site: 'https://units.bereg.dev/',
       text: 'A book about all 63 CSS units: what each one resolves to and what changes the result.',
       siteText: 'Companion site with live demos and browser support from MDN data:',

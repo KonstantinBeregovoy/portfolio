@@ -9,6 +9,7 @@ stack: ['Astro', 'TypeScript', 'CSS', 'Web Components', 'Playwright', 'axe-core'
 featured: true
 order: 25
 cover: '/img/units-rulebook.png'
+book: 'css-unit-rulebook'
 links:
   - { label: 'Website', href: 'https://units.bereg.dev/' }
 ---
@@ -27,9 +28,6 @@ Units like `vw`, `rem` or `dvh` are hard to explain with a static example: their
 ## Result
 
 A static site at units.bereg.dev. About 550 Playwright tests in Chromium, Firefox and WebKit, including axe checks of every page.
-
-The book with the same title, [CSS Unit Rulebook: What each CSS unit comes to, and what changes it](https://www.amazon.com/dp/B0HR65PS11), is out in paperback on Amazon (2026 edition, 106 pages).
-
 ## Decisions
 
 - Astro static with a strict CSP: no inline scripts or styles.

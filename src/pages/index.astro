@@ -5,6 +5,7 @@ import PostList from '../components/PostList.astro';
 import { en as t } from '../i18n/en';
 import { getPosts, getProjects } from '../lib/content';
 import { externalAttrs } from '../lib/external';
+import { bookNodes } from '../lib/seo';
 
 const projects = (await getProjects()).filter((p) => p.data.featured).slice(0, 6);
 const posts = await getPosts();
@@ -14,7 +15,7 @@ const latest = posts.filter((p) => !bestIds.has(p.id)).slice(0, 3);
 const main = t.experience.filter((e) => e.main);
 const other = t.experience.filter((e) => 'other' in e && e.other);
 ---
-<Base pageType="ProfilePage">
+<Base pageType="ProfilePage" jsonLd={bookNodes()}>
   <section class="block hero" aria-labelledby="hero-title">
     <h1 id="hero-title">{t.siteName}<span>{t.role}</span></h1>
     <p class="lede">{t.tagline}</p>
@@ -86,6 +87,18 @@ const other = t.experience.filter((e) => 'other' in e && e.other);
   {posts.length > 0 && (
     <section class="block" aria-labelledby="writing">
       <div class="block-head"><h2 id="writing">Writing</h2><a href="/blog/">All writing</a></div>
+      <p class="subhead">Book</p>
+      <ul class="posts">
+        {t.books.map((b) => (
+          <li>
+            <span class="meta">{b.year} · {b.format.toLowerCase()}</span>
+            <div>
+              <h3><a href={b.href} {...externalAttrs(b.href)}>{b.title}: {b.subtitle}</a></h3>
+              <p>{b.text} On {b.store}, {b.pages} pages. <a href={b.site}>{new URL(b.site).host}</a> is the companion site.</p>
+            </div>
+          </li>
+        ))}
+      </ul>
       {best.length > 0 && (<><p class="subhead">Best writing</p><PostList posts={best} /></>)}
       {latest.length > 0 && (<><p class="subhead">Latest writing</p><PostList posts={latest} /></>)}
     </section>

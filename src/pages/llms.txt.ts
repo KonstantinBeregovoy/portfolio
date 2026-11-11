@@ -33,6 +33,13 @@ export const GET: APIRoute = async () => {
     '',
     ...projects.map((project) => `- [${project.data.title}](${SITE}/projects/${project.id}/): ${project.data.summary}`),
     '',
+    '## Book',
+    '',
+    ...t.books.map(
+      (book) =>
+        `- [${book.title}: ${book.subtitle}](${book.href}): ${book.text} ${book.publisher}, ${book.edition}, ${book.format.toLowerCase()}, ${book.pages} pages, ISBN ${book.isbn}. Companion site: ${book.site}`,
+    ),
+    '',
     '## Writing',
     '',
     ...posts.map(

@@ -2,8 +2,9 @@
 import Base from '../layouts/Base.astro';
 import { en as t } from '../i18n/en';
 import { externalAttrs } from '../lib/external';
+import { bookNodes } from '../lib/seo';
 ---
-<Base pageType="ProfilePage" title="About" description="Frontend tech lead with 15+ years of experience: React, TypeScript, architecture, accessibility, AI-assisted engineering.">
+<Base pageType="ProfilePage" title="About" description="Frontend tech lead with 15+ years of experience: React, TypeScript, architecture, accessibility, AI-assisted engineering." jsonLd={bookNodes()}>
   <section class="block about-top">
     <div>
       <h1>About</h1>
@@ -49,6 +50,19 @@ import { externalAttrs } from '../lib/external';
     <div class="block-head"><h2 id="edu">Education</h2></div>
     <ul class="plain">
       {t.education.map((e) => <li><strong>{e.school}</strong><span class="muted">{e.degree}, {e.period}</span></li>)}
+    </ul>
+  </section>
+
+  <section class="block" id="book" aria-labelledby="books">
+    <div class="block-head"><h2 id="books">Book</h2></div>
+    <ul class="plain">
+      {t.books.map((b) => (
+        <li>
+          <strong><a href={b.href} {...externalAttrs(b.href)}>{b.title}: {b.subtitle}</a></strong>
+          <span class="muted">{b.publisher}, {b.edition}. {b.format}, {b.pages} pages, ISBN {b.isbn}. On {b.store}.</span>
+          <p>{b.text} {b.siteText} <a href={b.site}>{new URL(b.site).host}</a></p>
+        </li>
+      ))}
     </ul>
   </section>
 

@@ -172,6 +172,26 @@ export const en = {
     { school: 'Tel-Ran Educational Center', degree: 'Programming courses', period: '2016 to 2017' },
   ],
 
+  // Books. Shown on About, under "Writing" on Home, in llms.txt and as a Book in the structured data.
+  books: [
+    {
+      id: 'css-unit-rulebook',
+      title: 'CSS Unit Rulebook',
+      subtitle: 'What each CSS unit comes to, and what changes it',
+      edition: '2026 edition',
+      year: '2026',
+      publisher: 'Independently published',
+      format: 'Paperback',
+      pages: 106,
+      isbn: '9798140926632',
+      href: 'https://www.amazon.com/dp/B0HR65PS11',
+      store: 'Amazon',
+      site: 'https://units.bereg.dev/',
+      text: 'A book about all 63 CSS units: what each one resolves to and what changes the result.',
+      siteText: 'Companion site with live demos and browser support from MDN data:',
+    },
+  ],
+
   research: [
     {
       title: 'Proper Financial Strategy as the Key to Successful Enterprise Development',

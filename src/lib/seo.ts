@@ -41,6 +41,23 @@ export function websiteNode(): JsonLd {
   };
 }
 
+export function bookNodes(): JsonLd[] {
+  return t.books.map((book) => ({
+    '@type': 'Book',
+    '@id': `${SITE}/#book-${book.id}`,
+    name: book.title,
+    alternativeHeadline: book.subtitle,
+    author: { '@id': PERSON_ID },
+    bookEdition: book.edition,
+    bookFormat: `https://schema.org/${book.format}`,
+    numberOfPages: book.pages,
+    isbn: book.isbn,
+    datePublished: book.year,
+    inLanguage: t.lang,
+    url: book.href,
+  }));
+}
+
 export function breadcrumb(items: { name: string; path: string }[]): JsonLd {
   return {
     '@type': 'BreadcrumbList',

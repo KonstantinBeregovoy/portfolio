@@ -2,9 +2,11 @@
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PostList from '../components/PostList.astro';
+import BookPromo from '../components/BookPromo.astro';
 import { en as t } from '../i18n/en';
 import { getPosts, getProjects } from '../lib/content';
 import { externalAttrs } from '../lib/external';
+import { bookNodes } from '../lib/seo';
 
 const projects = (await getProjects()).filter((p) => p.data.featured).slice(0, 6);
 const posts = await getPosts();
@@ -14,8 +16,8 @@ const latest = posts.filter((p) => !bestIds.has(p.id)).slice(0, 3);
 const main = t.experience.filter((e) => e.main);
 const other = t.experience.filter((e) => 'other' in e && e.other);
 ---
-<Base pageType="ProfilePage">
-  <section class="block hero" aria-labelledby="hero-title">
+<Base pageType="ProfilePage" jsonLd={bookNodes()}>
+  <section class={t.books.length > 0 ? 'block hero has-book' : 'block hero'} aria-labelledby="hero-title">
     <h1 id="hero-title">{t.siteName}<span>{t.role}</span></h1>
     <p class="lede">{t.tagline}</p>
     <div class="actions">
@@ -24,6 +26,7 @@ const other = t.experience.filter((e) => 'other' in e && e.other);
       <a href={t.links.linkedin} {...externalAttrs(t.links.linkedin, 'me')}>LinkedIn</a>
       <a href={t.links.github} {...externalAttrs(t.links.github, 'me')}>GitHub</a>
     </div>
+    {t.books.slice(0, 1).map((b) => <BookPromo book={b} />)}
     <ul class="facts" aria-label="Key facts">
       {t.facts.map((f) => <li><strong>{f.value}</strong><span>{f.label}</span></li>)}
     </ul>

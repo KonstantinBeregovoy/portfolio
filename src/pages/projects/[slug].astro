@@ -4,6 +4,8 @@ import Base from '../../layouts/Base.astro';
 import { getPosts } from '../../lib/content';
 import { PERSON_ID, breadcrumb, abs } from '../../lib/seo';
 import { externalAttrs } from '../../lib/external';
+import { en as t } from '../../i18n/en';
+import BookPromo from '../../components/BookPromo.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -14,6 +16,8 @@ const { Content } = await render(project);
 const d = project.data;
 const related = d.post ? (await getPosts()).find((p) => p.id === d.post) : undefined;
 const statusLabel = { live: 'Live', ongoing: 'Ongoing', archived: 'Archived' }[d.status];
+const book = d.book ? t.books.find((b) => b.id === d.book) : undefined;
+if (d.book && !book) throw new Error(`Project ${project.id}: no book "${d.book}" in src/i18n/en.ts`);
 ---
 <Base
   title={d.title}
@@ -44,9 +48,10 @@ const statusLabel = { live: 'Live', ongoing: 'Ongoing', archived: 'Archived' }[d
     <p class="meta"><a href="/projects/">Projects</a></p>
     <h1>{d.title}</h1>
     <p class="lede" style="margin-top: 16px;">{d.summary}</p>
+    {book && <BookPromo book={book} layout="row" />}
     <p class="meta" style="margin-top: 16px;">{d.year} · {d.role} · {statusLabel}</p>
     {d.stack.length > 0 && <ul class="tags" aria-label="Stack">{d.stack.map((s) => <li>{s}</li>)}</ul>}
-    {(d.links.length > 0 || related) && (
+    {(d.links.length > 0 || related || book) && (
       <div class="actions" style="margin: 24px 0 32px;">
         {d.links.map((l, i) => (
           <a
@@ -57,7 +62,12 @@ const statusLabel = { live: 'Live', ongoing: 'Ongoing', archived: 'Archived' }[d
             {l.label}
           </a>
         ))}
-        {related && <a href={`/blog/${related.id}/`}>Read the article</a>}
+        {book && (
+          <a class={d.links.length > 0 ? 'btn secondary' : 'btn primary'} href={book.href} {...externalAttrs(book.href)}>
+            {book.cta}
+          </a>
+        )}
+        {related &&<a href={`/blog/${related.id}/`}>Read the article</a>}
       </div>
     )}
     <div class="article-body"><Content /></div>

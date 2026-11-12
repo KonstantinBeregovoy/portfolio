@@ -44,6 +44,8 @@ const projects = defineCollection({
     featured: z.boolean().default(false),
     // Slug of a related blog entry.
     post: z.string().optional(),
+    // Id of a book in `books` of src/i18n/en.ts: shows a book box under the title and a store button.
+    book: z.string().optional(),
     // Lower number goes first.
     order: z.number().default(100),
   }),

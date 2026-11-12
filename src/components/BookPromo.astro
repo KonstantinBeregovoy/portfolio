@@ -1,0 +1,17 @@
+---
+// A small card with the book cover and one link to the store. The whole card is the link (stretch).
+import type { Copy } from '../i18n/en';
+import { externalAttrs } from '../lib/external';
+interface Props { book: Copy['books'][number]; layout?: 'stack' | 'row'; }
+const { book, layout = 'stack' } = Astro.props;
+---
+<div class={`card book-promo ${layout}`}>
+  <img
+    src={book.cover.src}
+    srcset={`${book.cover.src2x} 2x`}
+    alt={book.coverAlt}
+    width={book.cover.width}
+    height={book.cover.height}
+  />
+  <a class="stretch" href={book.href} {...externalAttrs(book.href)}>{book.cta}</a>
+</div>

@@ -188,8 +188,9 @@ export const en = {
       store: 'Amazon',
       // Text of every link to the store page, so one destination has one name.
       cta: 'Book on Amazon',
-      // Label of the book box on the project page.
-      label: 'Book',
+      // Front cover cut from the paperback cover PDF, 140x200 and 280x400 (WebP).
+      cover: { src: '/img/css-unit-rulebook-cover-140.webp', src2x: '/img/css-unit-rulebook-cover-280.webp', width: 140, height: 200 },
+      coverAlt: 'Cover of CSS Unit Rulebook, 2026 edition',
       site: 'https://units.bereg.dev/',
       text: 'A book about all 63 CSS units: what each one resolves to and what changes the result.',
       siteText: 'Companion site with live demos and browser support from MDN data:',

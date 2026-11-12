@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PostList from '../components/PostList.astro';
+import BookPromo from '../components/BookPromo.astro';
 import { en as t } from '../i18n/en';
 import { getPosts, getProjects } from '../lib/content';
 import { externalAttrs } from '../lib/external';
@@ -16,7 +17,7 @@ const main = t.experience.filter((e) => e.main);
 const other = t.experience.filter((e) => 'other' in e && e.other);
 ---
 <Base pageType="ProfilePage" jsonLd={bookNodes()}>
-  <section class="block hero" aria-labelledby="hero-title">
+  <section class={t.books.length > 0 ? 'block hero has-book' : 'block hero'} aria-labelledby="hero-title">
     <h1 id="hero-title">{t.siteName}<span>{t.role}</span></h1>
     <p class="lede">{t.tagline}</p>
     <div class="actions">
@@ -25,6 +26,7 @@ const other = t.experience.filter((e) => 'other' in e && e.other);
       <a href={t.links.linkedin} {...externalAttrs(t.links.linkedin, 'me')}>LinkedIn</a>
       <a href={t.links.github} {...externalAttrs(t.links.github, 'me')}>GitHub</a>
     </div>
+    {t.books.slice(0, 1).map((b) => <BookPromo book={b} />)}
     <ul class="facts" aria-label="Key facts">
       {t.facts.map((f) => <li><strong>{f.value}</strong><span>{f.label}</span></li>)}
     </ul>
@@ -87,18 +89,6 @@ const other = t.experience.filter((e) => 'other' in e && e.other);
   {posts.length > 0 && (
     <section class="block" aria-labelledby="writing">
       <div class="block-head"><h2 id="writing">Writing</h2><a href="/blog/">All writing</a></div>
-      <p class="subhead">Book</p>
-      <ul class="posts">
-        {t.books.map((b) => (
-          <li>
-            <span class="meta">{b.year} · {b.format.toLowerCase()}</span>
-            <div>
-              <h3><a href={b.href} {...externalAttrs(b.href)}>{b.title}: {b.subtitle}</a></h3>
-              <p>{b.text} On {b.store}, {b.pages} pages. <a href={b.site}>{new URL(b.site).host}</a> is the companion site.</p>
-            </div>
-          </li>
-        ))}
-      </ul>
       {best.length > 0 && (<><p class="subhead">Best writing</p><PostList posts={best} /></>)}
       {latest.length > 0 && (<><p class="subhead">Latest writing</p><PostList posts={latest} /></>)}
     </section>

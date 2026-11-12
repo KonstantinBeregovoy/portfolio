@@ -5,6 +5,7 @@ import { getPosts } from '../../lib/content';
 import { PERSON_ID, breadcrumb, abs } from '../../lib/seo';
 import { externalAttrs } from '../../lib/external';
 import { en as t } from '../../i18n/en';
+import BookPromo from '../../components/BookPromo.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -47,14 +48,7 @@ if (d.book && !book) throw new Error(`Project ${project.id}: no book "${d.book}"
     <p class="meta"><a href="/projects/">Projects</a></p>
     <h1>{d.title}</h1>
     <p class="lede" style="margin-top: 16px;">{d.summary}</p>
-    {book && (
-      <aside class="card book-box" aria-labelledby="book-box-label">
-        <p class="meta" id="book-box-label">{book.label}</p>
-        <p class="book-box-title">{book.title}: {book.subtitle}</p>
-        <p>{book.edition}, {book.format.toLowerCase()}</p>
-        <p><a href={book.href} {...externalAttrs(book.href)}>{book.cta}</a></p>
-      </aside>
-    )}
+    {book && <BookPromo book={book} layout="row" />}
     <p class="meta" style="margin-top: 16px;">{d.year} · {d.role} · {statusLabel}</p>
     {d.stack.length > 0 && <ul class="tags" aria-label="Stack">{d.stack.map((s) => <li>{s}</li>)}</ul>}
     {(d.links.length > 0 || related || book) && (

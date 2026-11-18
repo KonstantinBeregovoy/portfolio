@@ -6,7 +6,7 @@ year: 2026
 role: 'Contributor'
 status: 'ongoing'
 stack: ['TypeScript', 'WCAG 2.x', 'HTML semantics', 'Static analysis']
-featured: true
+featured: false
 order: 30
 links:
   - { label: 'GitHub', href: 'https://github.com/jay-framework/jay' }

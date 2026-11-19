@@ -18,8 +18,8 @@ export async function getStaticPaths() {
 const { tag, items, posts } = Astro.props;
 ---
 <Base pageType="CollectionPage" title={`Blog: ${tag}`} description={`Writing by Konstantin Beregovoy tagged ${tag}.`}>
-  <section class="block">
-    <div class="block-head"><h1>Blog: {tag}</h1><a href="/rss.xml">RSS</a></div>
+  <section class="section">
+    <div class="section-head"><h1>Blog: {tag}</h1><a href="/rss.xml">RSS</a></div>
     <Filters label="Filter writing" items={items} current={`/blog/tag/${tag}/`} />
     <PostList posts={posts} level="h2" />
   </section>

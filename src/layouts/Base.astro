@@ -1,5 +1,8 @@
 ---
+import 'bereg-ds/bereg-ds.css';
+import 'bereg-ds/hdr.css';
 import '../styles/global.css';
+import plexSans from 'bereg-ds/fonts/plex-sans-latin-wght.woff2?url';
 import { en as t } from '../i18n/en';
 import { graphLd, type JsonLd } from '../lib/seo';
 import { externalAttrs } from '../lib/external';
@@ -52,7 +55,7 @@ const imageLabel = imageAlt ?? title ?? t.siteName;
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="Beregovoy" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <link rel="preload" href="/fonts/plex-sans-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={plexSans} as="font" type="font/woff2" crossorigin />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content={t.siteName} />
@@ -84,27 +87,27 @@ const imageLabel = imageAlt ?? title ?? t.siteName;
     {card === 'summary_large_image' && <meta name="twitter:image:alt" content={imageLabel} />}
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
   </head>
-  <body>
+  <body class="blueprint">
     <a class="skip" href="#main">Skip to content</a>
-    <header class="site">
+    <header class="site-header">
       <div class="wrap">
         <a class="brand" href="/" aria-label={`${t.siteName}, home`}>
-          <img src="/img/logo-hdr.jpg" alt="" width="240" height="169" />
+          <img class="hdr-logo" src="/img/logo-hdr.jpg" alt="" width="240" height="169" />
           <span>{t.siteName}</span>
         </a>
-        <nav aria-label="Main">
+        <nav class="site-nav" aria-label="Main">
           <ul>
             {t.nav.map((item) => (
-              <li><a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a></li>
+              <li><a class="nav-link" href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a></li>
             ))}
           </ul>
         </nav>
       </div>
     </header>
-    <main id="main">
+    <main id="main" class="sections">
       <div class="wrap"><slot /></div>
     </main>
-    <footer class="site">
+    <footer class="site-footer">
       <div class="wrap">
         <span>© {year} {t.siteName}</span>
         <span>

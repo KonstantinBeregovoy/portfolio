@@ -19,8 +19,8 @@ const { kind, items, posts } = Astro.props;
 const label = kind === 'article' ? 'Articles' : 'Posts';
 ---
 <Base pageType="CollectionPage" title={`Blog: ${label}`} description={`${label} by Konstantin Beregovoy on frontend, web standards, accessibility and AI-assisted engineering.`}>
-  <section class="block">
-    <div class="block-head"><h1>Blog: {label}</h1><a href="/rss.xml">RSS</a></div>
+  <section class="section">
+    <div class="section-head"><h1>Blog: {label}</h1><a href="/rss.xml">RSS</a></div>
     <Filters label="Filter writing" items={items} current={`/blog/type/${kind}/`} />
     <PostList posts={posts} level="h2" />
   </section>

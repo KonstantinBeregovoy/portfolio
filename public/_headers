@@ -12,9 +12,9 @@
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-site
 
-# Long cache for self-hosted fonts.
-# File names are not hashed: when a font file changes, give it a new name (e.g. plex-sans-var-v2.woff2).
-/fonts/*
+# Long cache for build assets: CSS and the fonts from bereg-ds. Astro puts a content hash in every file name,
+# so a changed file gets a new URL.
+/_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
 /manifest.webmanifest

@@ -5,6 +5,6 @@ const { label, items, current } = Astro.props;
 ---
 <nav aria-label={label}>
   <ul class="filters">
-    {items.map((i) => <li><a href={i.href} aria-current={i.href === current ? 'true' : undefined}>{i.label}</a></li>)}
+    {items.map((i) => <li><a class="filter-tab" href={i.href} aria-current={i.href === current ? 'true' : undefined}>{i.label}</a></li>)}
   </ul>
 </nav>

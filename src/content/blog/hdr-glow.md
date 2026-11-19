@@ -29,7 +29,7 @@ Everything runs in the browser tab. Nothing is uploaded. The whole app is about 
 
 Live: [glow.bereg.dev](https://glow.bereg.dev)
 
-Source (MIT): [github.com/KonstantinBeregovoy/hdr-glow](https://github.com/KonstantinBeregovoy/hdr-glow)
+Source (MIT): [GitHub](https://github.com/KonstantinBeregovoy/hdr-glow)
 
 The problem it solves. HDR screens can show white several times brighter than #fff. HDR photos and videos use that headroom. A logo on a web page or in a LinkedIn post cannot: as far as I could tell, no browser lets a CSS color go above SDR white. Next to an HDR photo, the logo looks flat. hdr-glow gives a logo a controlled amount of extra brightness, only where you want it, and degrades to a normal picture on a screen without HDR.
 
@@ -1122,4 +1122,4 @@ The hardest part was not the glow. It was that one file does not fit every place
 
 Try it with your own logo: [glow.bereg.dev](https://glow.bereg.dev)
 
-Source (MIT): [github.com/KonstantinBeregovoy/hdr-glow](https://github.com/KonstantinBeregovoy/hdr-glow)
+Source (MIT): [GitHub](https://github.com/KonstantinBeregovoy/hdr-glow)

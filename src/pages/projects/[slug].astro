@@ -55,7 +55,7 @@ if (d.book && !book) throw new Error(`Project ${project.id}: no book "${d.book}"
       <div class="actions" style="margin: 24px 0 32px;">
         {d.links.map((l, i) => (
           <a
-            class={i === 0 ? 'btn primary' : 'btn secondary'}
+            class={i === 0 ? 'btn btn-primary' : 'btn btn-secondary'}
             href={l.href}
             {...externalAttrs(l.href)}
           >
@@ -63,13 +63,13 @@ if (d.book && !book) throw new Error(`Project ${project.id}: no book "${d.book}"
           </a>
         ))}
         {book && (
-          <a class={d.links.length > 0 ? 'btn secondary' : 'btn primary'} href={book.href} {...externalAttrs(book.href)}>
+          <a class={d.links.length > 0 ? 'btn btn-secondary' : 'btn btn-primary'} href={book.href} {...externalAttrs(book.href)}>
             {book.cta}
           </a>
         )}
         {related &&<a href={`/blog/${related.id}/`}>Read the article</a>}
       </div>
     )}
-    <div class="article-body"><Content /></div>
+    <div class="prose"><Content /></div>
   </article>
 </Base>

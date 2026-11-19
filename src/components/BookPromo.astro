@@ -5,7 +5,7 @@ import { externalAttrs } from '../lib/external';
 interface Props { book: Copy['books'][number]; layout?: 'stack' | 'row'; }
 const { book, layout = 'stack' } = Astro.props;
 ---
-<div class={`card book-promo ${layout}`}>
+<div class={layout === 'row' ? 'card book-promo book-promo-row' : 'card book-promo'}>
   <img
     src={book.cover.src}
     srcset={`${book.cover.src2x} 2x`}
